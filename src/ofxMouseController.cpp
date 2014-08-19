@@ -45,7 +45,7 @@ void ofxMouseController::setMouseButton(const ofxMouseControllerButton button)
 // **************************************************************************** //
 //                                  WIN32                                       //
 // **************************************************************************** //
-#elif defined __WIN32__
+#elif defined _WIN32
 #include <Windows.h>
 
 void ofxMouseController::setMousePos(const int x, const int y)
@@ -53,7 +53,7 @@ void ofxMouseController::setMousePos(const int x, const int y)
     SetCursorPos(x, y);
 }
 
-void setMouseButton(const ofxMouseControllerButton)
+void ofxMouseController::setMouseButton(const ofxMouseControllerButton button)
 {
     
 }
