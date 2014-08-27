@@ -90,6 +90,8 @@ void ofxMouseController::buttonDown(const ofxMouseControllerButton button)
     // button down
     CGEventRef downEvent = CGEventCreateMouseEvent(NULL, cgeventdown, current_point, cgbutton);
     CGEventPost(kCGHIDEventTap, downEvent);
+    
+    ofLogVerbose(smModuleName) << "perform mouse button down " << log;
 }
 
 void ofxMouseController::buttonUp(const ofxMouseControllerButton button)
@@ -104,6 +106,8 @@ void ofxMouseController::buttonUp(const ofxMouseControllerButton button)
     // button up
     CGEventRef upEvent = CGEventCreateMouseEvent(NULL, cgeventup, current_point, cgbutton);
     CGEventPost(kCGHIDEventTap, upEvent);
+    
+    ofLogVerbose(smModuleName) << "perform mouse button up " << log;
 }
 
 // **************************************************************************** //
