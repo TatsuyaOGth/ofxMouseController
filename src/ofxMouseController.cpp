@@ -1,3 +1,11 @@
+/**
+ ofxMouseController.cpp https://github.com/TatsuyaOGth/ofxMouseController
+ 
+ Copyright (c) 2014 TatsuyaOGth http://ogsn.org
+ 
+ This software is released under the MIT License.
+ http://opensource.org/licenses/mit-license.php
+ */
 #include "ofxMouseController.h"
 
 string ofxMouseController::smModuleName("ofxMouseController");
