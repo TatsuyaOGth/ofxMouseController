@@ -4,6 +4,7 @@
 void ofApp::setup(){
     ofSetFrameRate(60);
     ofSetWindowShape(ofGetScreenWidth() / 3, ofGetScreenHeight() / 3);
+    ofSetLogLevel(OF_LOG_VERBOSE);
     
     x = ofGetWidth() * 0.5;
     y = 10;
@@ -41,7 +42,7 @@ void ofApp::update(){
     }
     
     // set mouse position
-    mouseController.setMousePos(x * 3, y * 3);
+    mouse.setPos(x * 3, y * 3);
 }
 
 //--------------------------------------------------------------
@@ -56,11 +57,13 @@ void ofApp::draw(){
     stringstream s;
     s << "ofxMouseController DEMO" << endl;
     s << "this is the your mouse." << endl;
-    s << "key" << endl;
-    s << "UP    : jump" << endl;
-    s << "LEFT  : move left" << endl;
-    s << "RIGHT : move right" << endl;
-    s << "ESC   : exit";
+    s << "perform action" << endl;
+    s << "- KEY UP    : jump" << endl;
+    s << "- KEY LEFT  : move left" << endl;
+    s << "- KEY RIGHT : move right" << endl;
+    s << "- KEY 1     : left click" << endl;
+    s << "- KEY 2     : right click" << endl;
+    s << "- KEY ESC   : exit";
     ofDrawBitmapString(s.str(), 10, 20);
 
 }
@@ -68,50 +71,19 @@ void ofApp::draw(){
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     switch (key) {
-        case OF_KEY_UP:     vy = -5; break;
-        case OF_KEY_LEFT:   vx -= 5; break;
-        case OF_KEY_RIGHT:  vx += 5; break;
-        case ' ': mouseController.setMouseButton(OFX_MOUSE_CONTROLLER_BUTTON_RIGHT); break;
+        case OF_KEY_UP:     vy = -5;    break;
+        case OF_KEY_LEFT:   vx -= 5;    break;
+        case OF_KEY_RIGHT:  vx += 5;    break;
+        case '1': mouse.click();        break;
+        case '2': mouse.clickRight();   break;
+        //case '3': mouse.buttonDown();   break;
     }
-    
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-
+    switch (key) {
+        //case '3': mouse.buttonUp();     break;
+    }
 }
 
-//--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y ){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseDragged(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseReleased(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::windowResized(int w, int h){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::gotMessage(ofMessage msg){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo){ 
-
-}

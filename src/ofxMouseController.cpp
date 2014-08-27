@@ -1,16 +1,42 @@
 #include "ofxMouseController.h"
 
-#include "ofMain.h"
-using namespace std;
+string ofxMouseController::smModuleName("ofxMouseController");
 
 // **************************************************************************** //
 //                                  MAC                                         //
 // **************************************************************************** //
 #ifdef __APPLE__
+
+/* 
+ * README:
+ * You need help? You must add CoreGraphics.framework to your project.
+ */
 #include <CoreGraphics/CGEvent.h>
 #include <CoreGraphics/CGRemoteOperation.h>
 
-void ofxMouseController::setMousePos(const int x, const int y)
+void getEventType(const ofxMouseControllerButton button,
+                  CGMouseButton & cgmousebutton,
+                  CGEventType & cgeventtypedown,
+                  CGEventType & cgeventtypeup,
+                  string & log)
+{
+    switch (button) {
+        case OFX_MOUSE_CONTROLLER_BUTTON_LEFT   :
+            cgmousebutton = kCGMouseButtonLeft;
+            cgeventtypedown = kCGEventLeftMouseDown;
+            cgeventtypeup   = kCGEventLeftMouseUp;
+            log = "left";
+            break;
+        case OFX_MOUSE_CONTROLLER_BUTTON_RIGHT  :
+            cgmousebutton = kCGMouseButtonRight;
+            cgeventtypedown = kCGEventRightMouseDown;
+            cgeventtypeup   = kCGEventRightMouseUp;
+            log = "right";
+            break;
+    }
+}
+
+void ofxMouseController::setPos(const int x, const int y)
 {
     CGPoint point;
     point.x = (CGFloat)x;
@@ -24,22 +50,52 @@ void ofxMouseController::setMousePos(const int x, const int y)
     
 }
 
-void ofxMouseController::setMouseButton(const ofxMouseControllerButton button)
+void ofxMouseController::click(const ofxMouseControllerButton button)
 {
     CGMouseButton cgbutton;
-    switch (button) {
-        case OFX_MOUSE_CONTROLLER_BUTTON_LEFT   : cgbutton = kCGMouseButtonLeft; break;
-        case OFX_MOUSE_CONTROLLER_BUTTON_RIGHT  : cgbutton = kCGMouseButtonRight; break;
-        case OFX_MOUSE_CONTROLLER_BUTTON_CENTER : cgbutton = kCGMouseButtonCenter; break;
-        default: return;
-    }
-    CGEventType type = kCGMouseEventButtonNumber;
-    
+    CGEventType cgeventdown;
+    CGEventType cgeventup;
+    string log;
+    getEventType(button, cgbutton, cgeventdown, cgeventup, log);
     CGPoint current_point = CGEventGetLocation(CGEventCreate(nil));
-    CGEventRef theEvent = CGEventCreateMouseEvent(NULL, type, current_point, cgbutton);
-    CGEventSetType(theEvent, type);
-    CGEventPost(kCGHIDEventTap, theEvent);
+    
+    // button down
+    CGEventRef downEvent = CGEventCreateMouseEvent(NULL, cgeventdown, current_point, cgbutton);
+    CGEventPost(kCGHIDEventTap, downEvent);
+    
+    // button up
+    CGEventRef upEvent = CGEventCreateMouseEvent(NULL, cgeventup, current_point, cgbutton);
+    CGEventPost(kCGHIDEventTap, upEvent);
+    
+    ofLogVerbose(smModuleName) << "perform mouse click " << log;
+}
 
+void ofxMouseController::buttonDown(const ofxMouseControllerButton button)
+{
+    CGMouseButton cgbutton;
+    CGEventType cgeventdown;
+    CGEventType cgeventup;
+    string log;
+    getEventType(button, cgbutton, cgeventdown, cgeventup, log);
+    CGPoint current_point = CGEventGetLocation(CGEventCreate(nil));
+    
+    // button down
+    CGEventRef downEvent = CGEventCreateMouseEvent(NULL, cgeventdown, current_point, cgbutton);
+    CGEventPost(kCGHIDEventTap, downEvent);
+}
+
+void ofxMouseController::buttonUp(const ofxMouseControllerButton button)
+{
+    CGMouseButton cgbutton;
+    CGEventType cgeventdown;
+    CGEventType cgeventup;
+    string log;
+    getEventType(button, cgbutton, cgeventdown, cgeventup, log);
+    CGPoint current_point = CGEventGetLocation(CGEventCreate(nil));
+    
+    // button up
+    CGEventRef upEvent = CGEventCreateMouseEvent(NULL, cgeventup, current_point, cgbutton);
+    CGEventPost(kCGHIDEventTap, upEvent);
 }
 
 // **************************************************************************** //
@@ -48,14 +104,24 @@ void ofxMouseController::setMouseButton(const ofxMouseControllerButton button)
 #elif defined _WIN32
 #include <Windows.h>
 
-void ofxMouseController::setMousePos(const int x, const int y)
+void ofxMouseController::setPos(const int x, const int y)
 {
     SetCursorPos(x, y);
 }
 
-void ofxMouseController::setMouseButton(const ofxMouseControllerButton button)
+void ofxMouseController::click(const ofxMouseControllerButton button)
 {
-    
+    // sorry, It does not support yet.
+}
+
+void ofxMouseController::buttonDown(const ofxMouseControllerButton button)
+{
+    // sorry, It does not support yet.
+}
+
+void ofxMouseController::buttonUp(const ofxMouseControllerButton button)
+{
+    // sorry, It does not support yet.
 }
 
 #endif
