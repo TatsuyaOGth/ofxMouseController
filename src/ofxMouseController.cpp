@@ -137,6 +137,8 @@ void ofxMouseController::buttonDown(const ofxMouseControllerButton button)
 		mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
 		break;
 	}
+    
+    ofLogVerbose(smModuleName) << "perform mouse button down " << log;
 }
 
 void ofxMouseController::buttonUp(const ofxMouseControllerButton button)
@@ -149,6 +151,8 @@ void ofxMouseController::buttonUp(const ofxMouseControllerButton button)
 		mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
 		break;
 	}
+    
+    ofLogVerbose(smModuleName) << "perform mouse button up " << log;
 }
 
 #endif
