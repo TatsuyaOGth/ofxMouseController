@@ -123,17 +123,32 @@ void ofxMouseController::setPos(const int x, const int y)
 
 void ofxMouseController::click(const ofxMouseControllerButton button)
 {
-    // sorry, It does not support yet.
+	buttonDown(button);
+	buttonUp(button);
 }
 
 void ofxMouseController::buttonDown(const ofxMouseControllerButton button)
 {
-    // sorry, It does not support yet.
+    switch (button) {
+	case OFX_MOUSE_CONTROLLER_BUTTON_LEFT:
+		mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+		break;
+	case OFX_MOUSE_CONTROLLER_BUTTON_RIGHT:
+		mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+		break;
+	}
 }
 
 void ofxMouseController::buttonUp(const ofxMouseControllerButton button)
 {
-    // sorry, It does not support yet.
+    switch (button) {
+	case OFX_MOUSE_CONTROLLER_BUTTON_LEFT:
+		mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+		break;
+	case OFX_MOUSE_CONTROLLER_BUTTON_RIGHT:
+		mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+		break;
+	}
 }
 
 #endif
