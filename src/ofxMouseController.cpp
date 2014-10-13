@@ -8,8 +8,6 @@
  */
 #include "ofxMouseController.h"
 
-string ofxMouseController::smModuleName("ofxMouseController");
-
 // **************************************************************************** //
 //                                  MAC                                         //
 // **************************************************************************** //
@@ -17,7 +15,7 @@ string ofxMouseController::smModuleName("ofxMouseController");
 
 /* 
  * README:
- * You need help? You must add CoreGraphics.framework to your project.
+ * You need help? You must add CoreGraphics.framework to your xcode project.
  */
 #include <CoreGraphics/CGEvent.h>
 #include <CoreGraphics/CGRemoteOperation.h>
@@ -44,7 +42,7 @@ void getEventType(const ofxMouseControllerButton button,
     }
 }
 
-void ofxMouseController::setPos(const int x, const int y)
+void ofxMouseController::setPos(const float x, const float y)
 {
     CGPoint point;
     point.x = (CGFloat)x;
@@ -55,7 +53,6 @@ void ofxMouseController::setPos(const int x, const int y)
     CGEventRef theEvent = CGEventCreateMouseEvent(NULL, type, point, button);
     CGEventSetType(theEvent, type);
     CGEventPost(kCGHIDEventTap, theEvent);
-    
 }
 
 void ofxMouseController::click(const ofxMouseControllerButton button)
@@ -74,8 +71,6 @@ void ofxMouseController::click(const ofxMouseControllerButton button)
     // button up
     CGEventRef upEvent = CGEventCreateMouseEvent(NULL, cgeventup, current_point, cgbutton);
     CGEventPost(kCGHIDEventTap, upEvent);
-    
-    ofLogVerbose(smModuleName) << "perform mouse click " << log;
 }
 
 void ofxMouseController::buttonDown(const ofxMouseControllerButton button)
@@ -90,8 +85,6 @@ void ofxMouseController::buttonDown(const ofxMouseControllerButton button)
     // button down
     CGEventRef downEvent = CGEventCreateMouseEvent(NULL, cgeventdown, current_point, cgbutton);
     CGEventPost(kCGHIDEventTap, downEvent);
-    
-    ofLogVerbose(smModuleName) << "perform mouse button down " << log;
 }
 
 void ofxMouseController::buttonUp(const ofxMouseControllerButton button)
@@ -106,8 +99,6 @@ void ofxMouseController::buttonUp(const ofxMouseControllerButton button)
     // button up
     CGEventRef upEvent = CGEventCreateMouseEvent(NULL, cgeventup, current_point, cgbutton);
     CGEventPost(kCGHIDEventTap, upEvent);
-    
-    ofLogVerbose(smModuleName) << "perform mouse button up " << log;
 }
 
 // **************************************************************************** //
@@ -137,8 +128,6 @@ void ofxMouseController::buttonDown(const ofxMouseControllerButton button)
 		mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
 		break;
 	}
-    
-    ofLogVerbose(smModuleName) << "perform mouse button down " << log;
 }
 
 void ofxMouseController::buttonUp(const ofxMouseControllerButton button)
@@ -150,10 +139,15 @@ void ofxMouseController::buttonUp(const ofxMouseControllerButton button)
 	case OFX_MOUSE_CONTROLLER_BUTTON_RIGHT:
 		mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
 		break;
-	}
-    
-    ofLogVerbose(smModuleName) << "perform mouse button up " << log;
+	}    
 }
+
+// **************************************************************************** //
+//                                  WIN32                                       //
+// **************************************************************************** //
+#elif defined __linux__
+
+// sorry, for linux version is unimplemented.
 
 #endif
 
