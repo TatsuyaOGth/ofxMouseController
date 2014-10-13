@@ -12,9 +12,4 @@ class ofApp : public ofBaseApp{
 
 		void keyPressed(int key);
 		void keyReleased(int key);
-    
-    float x, y, vx, vy;
-    
-    ofxMouseController mouse;
-		
 };

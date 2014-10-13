@@ -42,7 +42,7 @@ void ofApp::update(){
     }
     
     // set mouse position
-    mouse.setPos(x * 3, y * 3);
+    ofxMouseController::setPos(x * 3, y * 3);
 }
 
 //--------------------------------------------------------------
@@ -74,16 +74,16 @@ void ofApp::keyPressed(int key){
         case OF_KEY_UP:     vy = -5;    break;
         case OF_KEY_LEFT:   vx -= 5;    break;
         case OF_KEY_RIGHT:  vx += 5;    break;
-        case '1': mouse.click();        break;
-        case '2': mouse.clickRight();   break;
-        //case '3': mouse.buttonDown();   break;
+        case '1': ofxMouseController::click();        break;
+        case '2': ofxMouseController::clickRight();   break;
+        case '3': ofxMouseController::buttonDown();   break;
     }
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
     switch (key) {
-        //case '3': mouse.buttonUp();     break;
+        case '3': ofxMouseController::buttonUp();     break;
     }
 }
 
