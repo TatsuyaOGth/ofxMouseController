@@ -147,7 +147,47 @@ void ofxMouseController::buttonUp(const ofxMouseControllerButton button)
 // **************************************************************************** //
 #elif defined __linux__
 
-// sorry, for linux version is unimplemented.
+#include <X11/X.h>
+#include <X11/Xlib.h>
+#include <X11/extensions/XTest.h>
+
+void ofxMouseController::setPos(const float x, const float y)
+{
+    Display *display = XOpenDisplay(0);
+    XTestFakeMotionEvent(display,0,x,y,2); //set pos relative to screen
+    //XWarpPointer(display, None, None, 0, 0, 0, 0, x, y); //moove the cursor with a certain amount of pixels
+    XCloseDisplay(display);
+}
+
+void ofxMouseController::click(const ofxMouseControllerButton button)
+{
+	buttonDown(button);
+	buttonUp(button);
+}
+
+//void ofxMouseController::buttonDown(const ofxMouseControllerButton button)
+//{
+//    switch (button) {
+//	case OFX_MOUSE_CONTROLLER_BUTTON_LEFT:
+//		mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+//		break;
+//	case OFX_MOUSE_CONTROLLER_BUTTON_RIGHT:
+//		mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+//		break;
+//	}
+//}
+
+//void ofxMouseController::buttonUp(const ofxMouseControllerButton button)
+//{
+//    switch (button) {
+//	case OFX_MOUSE_CONTROLLER_BUTTON_LEFT:
+//		mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+//		break;
+//	case OFX_MOUSE_CONTROLLER_BUTTON_RIGHT:
+//		mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+//		break;
+//	}
+//}
 
 #endif
 
