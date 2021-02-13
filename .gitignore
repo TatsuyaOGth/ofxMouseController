@@ -36,3 +36,6 @@
 *.sdf
 *.suo
 *.opensdf
+
+*.make
+Makefile
