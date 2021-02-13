@@ -165,29 +165,33 @@ void ofxMouseController::click(const ofxMouseControllerButton button)
 	buttonUp(button);
 }
 
-//void ofxMouseController::buttonDown(const ofxMouseControllerButton button)
-//{
-//    switch (button) {
-//	case OFX_MOUSE_CONTROLLER_BUTTON_LEFT:
-//		mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-//		break;
-//	case OFX_MOUSE_CONTROLLER_BUTTON_RIGHT:
-//		mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
-//		break;
-//	}
-//}
+void ofxMouseController::buttonDown(const ofxMouseControllerButton button)
+{
+    Display *display = XOpenDisplay(0);
+    switch (button) {
+	case OFX_MOUSE_CONTROLLER_BUTTON_LEFT:
+		XTestFakeButtonEvent(display,1,true,0);
+		break;
+	case OFX_MOUSE_CONTROLLER_BUTTON_RIGHT:
+		XTestFakeButtonEvent(display,3,true,0);
+		break;
+    }
+    XCloseDisplay(display);
+}
 
-//void ofxMouseController::buttonUp(const ofxMouseControllerButton button)
-//{
-//    switch (button) {
-//	case OFX_MOUSE_CONTROLLER_BUTTON_LEFT:
-//		mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-//		break;
-//	case OFX_MOUSE_CONTROLLER_BUTTON_RIGHT:
-//		mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
-//		break;
-//	}
-//}
+void ofxMouseController::buttonUp(const ofxMouseControllerButton button)
+{
+    Display *display = XOpenDisplay(0);
+    switch (button) {
+	case OFX_MOUSE_CONTROLLER_BUTTON_LEFT:
+		XTestFakeButtonEvent(display,1,false,0);
+		break;
+	case OFX_MOUSE_CONTROLLER_BUTTON_RIGHT:
+		XTestFakeButtonEvent(display,3,false,0);
+		break;
+    }
+    XCloseDisplay(display);
+}
 
 #endif
 
