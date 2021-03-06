@@ -36,3 +36,12 @@
 *.sdf
 *.suo
 *.opensdf
+
+*.make
+Makefile
+
+*.qbs
+*.qbs.user
+*.compiler_flags
+*/*/bin/*
+*/build-*/*
