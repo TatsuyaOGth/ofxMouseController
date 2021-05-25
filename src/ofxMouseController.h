@@ -8,7 +8,8 @@
  */
 #pragma once
 
-#include "ofMain.h"
+#include "ofPoint.h"
+#include "ofAppRunner.h"
 
 enum ofxMouseControllerButton
 {
@@ -20,7 +21,7 @@ class ofxMouseController
 {
     
 public:
-    
+
     // move position
     static        void setPos(const float x, const float y);
     static inline void setPos(const ofPoint pos) { setPos(pos.x, pos.y); }
@@ -46,5 +47,5 @@ public:
     static inline void rightButtonDown()   { buttonDown(OFX_MOUSE_CONTROLLER_BUTTON_RIGHT);}
     static inline void leftButtonUp()      { buttonUp(OFX_MOUSE_CONTROLLER_BUTTON_LEFT); }
     static inline void rightButtonUp()     { buttonUp(OFX_MOUSE_CONTROLLER_BUTTON_RIGHT);}
-    
+
 };

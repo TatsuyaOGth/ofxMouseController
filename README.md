@@ -12,11 +12,7 @@ Here is a demo:
 ## Important
 
 * On OSX, you must add **CoreGraphics.framework** to your Xcode project.
-* On linux, with qt creator, you must add flags to your project:
-```json
-of.linkerFlags: of.linkerFlags: ["-lX11", "-lXtst", "-lXext"]
-
-```
+* On linux, with qt creator, you must install X11 headers.
 
 ## License
 
