@@ -40,8 +40,11 @@
 *.make
 Makefile
 
+# linux with qt
 *.qbs
 *.qbs.user
 *.compiler_flags
-*/*/bin/*
+
 */build-*/*
+*/*/bin/*
+*/*/obj/*
